@@ -7,6 +7,12 @@ namespace MotoduinoWiFi {
     let bAP_Connected: boolean = false
     let bThingSpeak_onnected: boolean = false
 
+	// write AT command with CR+LF ending
+    function sendAT(command: string, wait: number = 0) {
+        serial.writeString(command + "\u000D\u000A")
+        basic.pause(wait)
+    }
+	
     // wait for certain response from ESP8266
     function waitResponse(): boolean {
         let serial_str: string = ""
