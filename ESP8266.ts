@@ -66,17 +66,17 @@ namespace MotoduinoWiFi {
             }
         }
 		**/
-		
+
 		sendAT("AT+RESTORE", 1000) // restore to factory settings
 		sendAT("AT+CWMODE_CUR=1") // set to STA mode
 		sendAT("AT+RST", 1000) // reset
-        basic.pause(100)
+		basic.pause(100)
 
 		bAP_Connected = false
-        bThingSpeak_onnected = false
-        sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0) // connect to Wifi router
-        bAP_Connected = waitResponse()
-        basic.pause(100)
+		bThingSpeak_onnected = false
+		sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0) // connect to Wifi router
+		bAP_Connected = waitResponse()
+		basic.pause(100)
     }
 
 
@@ -85,7 +85,7 @@ namespace MotoduinoWiFi {
     */
     //% blockId=Check_WiFiConnect
     //% weight=85
-    //% block="Check WiFiConnect %State"
+    //% block="Check WiFiConnect"
     export function Check_WiFiConnect(): boolean {
         return bAP_Connected
     }
