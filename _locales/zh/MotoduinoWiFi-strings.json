@@ -1,0 +1,4 @@
+{
+  "ESP8266_IoT.Wifi_Setup|block": "ESP8266設定|TXD %txd|RXD %rxd|分享器名稱 %ssid|分享器密碼 %passwd",
+  "ESP8266_IoT.Check_WiFiConnect|block": "WiFi連線狀態"
+}
