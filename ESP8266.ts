@@ -49,7 +49,7 @@ namespace MotoduinoWiFi {
         serial.redirect(
             txd,   //TX
             rxd,  //RX
-            BaudRate.BaudRate9600
+            9600
         );
 		
         /**
