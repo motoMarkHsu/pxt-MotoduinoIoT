@@ -4,10 +4,10 @@
 //% color=#00bc11 icon="\uf1eb" weight=90 block="MotoduinoIoT"
 namespace MotoduinoWiFi {
 
-	let bAP_Connected: boolean = false
-	let bThingSpeak_onnected: boolean = false
-	
-	// wait for certain response from ESP8266
+    let bAP_Connected: boolean = false
+    let bThingSpeak_onnected: boolean = false
+
+    // wait for certain response from ESP8266
     function waitResponse(): boolean {
         let serial_str: string = ""
         let result: boolean = false
@@ -65,22 +65,22 @@ namespace MotoduinoWiFi {
 
             }
         }
-		**/
+        **/
 
-		sendAT("AT+RESTORE", 1000) // restore to factory settings
-		sendAT("AT+CWMODE_CUR=1") // set to STA mode
-		sendAT("AT+RST", 1000) // reset
-		basic.pause(100)
+        sendAT("AT+RESTORE", 1000) // restore to factory settings
+        sendAT("AT+CWMODE_CUR=1") // set to STA mode
+        sendAT("AT+RST", 1000) // reset
+        basic.pause(100)
 
-		bAP_Connected = false
-		bThingSpeak_onnected = false
-		sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0) // connect to Wifi router
-		bAP_Connected = waitResponse()
-		basic.pause(100)
+        bAP_Connected = false
+        bThingSpeak_onnected = false
+        sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0) // connect to Wifi router
+        bAP_Connected = waitResponse()
+        basic.pause(100)
     }
 
 
-	/**
+    /**
     * Check if ESP8266 successfully connected to Wifi
     */
     //% blockId=Check_WiFiConnect
