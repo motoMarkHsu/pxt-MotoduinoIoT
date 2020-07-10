@@ -39,7 +39,7 @@ namespace MotoduinoWiFi {
     //% weight=100
     //% block="Motoduino WIFI Set| TXD %txd| RXD %rxd| SSID %ssid| PASSWORD %passwd"
 
-    export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string, ap: IOT_Config): void {
+    export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
         serial.redirect(
             txd,   //TX
             rxd,  //RX
@@ -86,12 +86,7 @@ namespace MotoduinoWiFi {
     //% blockId=Check_WiFiConnect
     //% weight=85
     //% block="Check WiFiConnect %State"
-    export function Check_WiFiConnect(state: boolean) {
-        if (bAP_Connected == state) {
-            return true
-        }
-        else {
-            return false
-        }
+    export function Check_WiFiConnect(): boolean {
+        return bAP_Connected
     }
 }
