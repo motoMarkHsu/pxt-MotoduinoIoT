@@ -43,13 +43,13 @@ namespace MotoduinoWiFi {
     */
     //% blockId=Wifi_Setup
     //% weight=100
-    //% block="Motoduino WIFI Set| RX (Tx of micro:bit) %txd| TX (Rx of micro:bit) %rxd| SSID %ssid| PASSWORD %passwd"
+    //% block="Motoduino WIFI Set| RX (Tx of micro:bit) %txd| TX (Rx of micro:bit) %rxd| Baud rate %baudrate| SSID %ssid| PASSWORD %passwd"
 
-    export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
+    export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, baudrate: BaudRate, ssid: string, passwd: string): void {
         serial.redirect(
             txd,   //TX
             rxd,  //RX
-            BaudRate.BaudRate9600
+            baudrate
         );
 		
         /**
