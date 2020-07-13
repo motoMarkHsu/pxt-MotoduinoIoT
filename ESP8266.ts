@@ -51,27 +51,6 @@ namespace MotoduinoWiFi {
             rxd,  //RX
             baudrate
         );
-		
-        /**
-        serial.setRxBufferSize(128)
-        serial.setTxBufferSize(128)
-        control.waitMicros(500000)
-        WifiDataReceived()
-        control.waitMicros(200000)
-        serial.writeLine("AT+Restart=");
-        control.waitMicros(1300000)
-        serial.writeLine("AT+AP_SET?ssid=" + ssid + "&pwd=" + passwd + "&AP=" + ap + "=");
-        for (let id_y = 0; id_y <= 4; id_y++) {
-            for (let id_x = 0; id_x <= 4; id_x++) {
-                if (!IOT_WIFI_CONNECTED) {
-                    led.plot(id_x, id_y)
-                    basic.pause(500)
-
-                }
-
-            }
-        }
-        **/
 
         sendAT("AT+RESTORE", 1000) // restore to factory settings
         sendAT("AT+CWMODE=1") // set to STA mode
