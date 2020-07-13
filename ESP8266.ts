@@ -43,13 +43,13 @@ namespace MotoduinoWiFi {
     */
     //% blockId=Wifi_Setup
     //% weight=100
-    //% block="Motoduino WIFI Set| RX (Tx of micro:bit) %txd| TX (Rx of micro:bit) %rxd| SSID %ssid| PASSWORD %passwd"
+    //% block="Motoduino WIFI Set| Tx Pin %txd| Rx Pin %rxd| SSID %ssid| PASSWORD %passwd"
 
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
         serial.redirect(
             txd,   //TX
             rxd,  //RX
-            BaudRate.BaudRate9600
+            9600
         );
 		
         /**
@@ -71,7 +71,25 @@ namespace MotoduinoWiFi {
 
             }
         }
-        **/
+		
+        serial.setRxBufferSize(128)
+        serial.setTxBufferSize(128)
+        control.waitMicros(500000)
+        //WifiDataReceived()
+        control.waitMicros(200000)
+        serial.writeLine("AT+Restart=");
+        control.waitMicros(1300000)
+        serial.writeLine("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"");
+        for (let id_y = 0; id_y <= 4; id_y++) {
+            for (let id_x = 0; id_x <= 4; id_x++) {
+                if (!bAP_Connected) {
+                    led.plot(id_x, id_y)
+                    basic.pause(500)
+
+                }
+
+            }
+        }**/
 
         sendAT("AT+RESTORE", 1000) // restore to factory settings
         sendAT("AT+CWMODE=1") // set to STA mode
