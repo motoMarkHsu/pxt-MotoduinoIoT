@@ -1,5 +1,5 @@
 {
 	"MotoduinoWiFi|block": "慧手科技IoT",
-	"MotoduinoWiFi.Wifi_Setup|block": "ESP8266設定|Tx腳位 %txd|Rx腳位 %rxd|分享器名稱 %ssid|分享器密碼 %passwd",
+	"MotoduinoWiFi.Wifi_Setup|block": "ESP8266設定|Tx腳位 %txd|Rx腳位 %rxd|傳輸率 %baudrate|分享器名稱 %ssid|分享器密碼 %passwd",
 	"MotoduinoWiFi.Check_WiFiConnect|block": "WiFi連線狀態"
 }
