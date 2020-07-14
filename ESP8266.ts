@@ -22,14 +22,14 @@ namespace MotoduinoWiFi {
             serial_str += serial.readString()
             if (serial_str.length > 200)
                 serial_str = serial_str.substr(serial_str.length - 200)
-            if (serial_str.includes("OK") || serial_str.includes("ALREADY CONNECTED") || serial_str.includes("WIFI GOT IP") || serial_str.includes("CONNECT")) {
+            if (serial_str.includes("OK") || serial_str.includes("ALREADY CONNECTED")) {
                 result = true
                 break
             }
             if (serial_str.includes("ERROR") || serial_str.includes("FAIL")) {
                 break
             }
-            if (input.runningTime() - time > 3000) {
+            if (input.runningTime() - time > 30000) {
                 break
             }
         }
