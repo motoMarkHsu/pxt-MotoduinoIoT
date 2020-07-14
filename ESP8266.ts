@@ -128,7 +128,7 @@ namespace MotoduinoWiFi {
     //% block="Google Form Service| API Keys %apikey| Entry ID1 %entryID1| Data 1 %data1"| Entry ID2 %entryID2| Data 2 %data2"
     //% apikey.defl="1FAIpQLSdfCMb_9-4Rp3f2fMdD2XXRy2SA7PXEhF1rIh0PYc9NviQafA"
     //% entryID1.defl=1118846978
-    //% data1.defl="111"
+    //% data1.defl="333"
     //% entryID2.defl=1483196833
     //% data2.defl="222"
 	
