@@ -27,7 +27,7 @@ namespace MotoduinoWiFi {
             } else if (serial_str.includes("ERROR") || serial_str.includes("SEND FAIL")) {
                 break
             }
-            if (input.runningTime() - time > 30000) {
+            if (input.runningTime() - time > 5000) {
 			    break
             }
         }
