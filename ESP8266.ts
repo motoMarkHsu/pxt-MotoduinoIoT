@@ -84,7 +84,7 @@ namespace MotoduinoWiFi {
         let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
         let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
         sendAT(ATCommand)
-        sendAT(TSCommand,2000)
+        sendAT(TSCommand,1000)
         sendAT("AT+CIPCLOSE")
     }
 	
@@ -92,7 +92,7 @@ namespace MotoduinoWiFi {
     //% blockId=IFTTT_Service
     //% weight=70
     //% block="IFTTT Service| API Keys %apikey| Event Name %eventName| Value 1 %v1| Value 2 %v2| Value 3 %v3"
-    //% apikey.defl="d2tCByRKOVoOzbHT-PAelo"
+    //% apikey.defl="d2tCByRKOVoOzbHT-PAel"
     //% eventName.defl="IFTTT_Trigger"
 	
     export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
