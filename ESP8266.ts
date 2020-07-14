@@ -46,8 +46,8 @@ namespace MotoduinoWiFi {
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
     //% txd.defl=SerialPin.P13
     //% rxd.defl=SerialPin.P14
-	//% ssid.defl="MarkHsu"
-	//% passwd.defl="kh3109269"
+	//% ssid.defl="Motoduino"
+	//% passwd.defl="motoblockly123"
 	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
@@ -67,7 +67,7 @@ namespace MotoduinoWiFi {
     * Check if ESP8266 successfully connected to Wifi
     */
     //% blockId=Check_WiFiConnect
-    //% weight=85
+    //% weight=90
     //% block="Check WiFiConnect"
 	
     export function Check_WiFiConnect(): boolean {
@@ -92,8 +92,6 @@ namespace MotoduinoWiFi {
     //% blockId=IFTTT_Service
     //% weight=70
     //% block="IFTTT Service| API Keys %apikey| Event Name %eventName| Value 1 %v1| Value 2 %v2| Value 3 %v3"
-    //% apikey.defl="d2tCByRKOVoOzbHT-PAel"
-    //% eventName.defl="IFTTT_Trigger"
 	
     export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
         let IFTTTCommand = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+ "?value1="+ v1+ "&value2="+ v2+"&value3="+ v3+ " HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
@@ -104,4 +102,42 @@ namespace MotoduinoWiFi {
         sendAT(IFTTTCommand,1000)
         sendAT("AT+CIPCLOSE")
     }
+	
+	
+	/**
+    //% blockId=LINE_Notify
+    //% weight=50
+    //% block="LINE Notify| Token %token| LINE Message %msg"
+    //% token.defl="d2tCByRKOVoOzbHT-PAelo"
+    //% msg.defl="Hello"
+	
+    export function LINE_Notify(token: string, msg: string): void {
+        let LINENotifyCommand = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+ "?value1="+ v1+ "&value2="+ v2+"&value3="+ v3+ " HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        let ATCommand = "AT+CIPSEND=" + (LINENotifyCommand.length + 2)
+		
+        sendAT("AT+CIPSTART=\"SSL\",\"notify-api.line.me\",443", 3000)
+        sendAT(ATCommand)
+        sendAT(LINENotifyCommand,1000)
+        sendAT("AT+CIPCLOSE")
+    }
+	**/
+	
+	
+    //% blockId=GoogleForm_Service
+    //% weight=40
+    //% block="Google Form Service| API Keys %apikey| Entry ID1 %entryID1| Data 1 %data1"| Entry ID2 %entryID2| Data 2 %data2"
+    //% apikey.defl="1FAIpQLSdfCMb_9-4Rp3f2fMdD2XXRy2SA7PXEhF1rIh0PYc9NviQafA"
+    //% entryID1.defl=1118846978
+	//% entryID2.defl=1483196833
+	
+    export function GoogleForm_Service(apikey: string, entryID1: number, data1: string, entryID2: number, data2: string): void {
+        let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ data1+ "&entry."+ entryID2+ "="+ data2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        let ATCommand = "AT+CIPSEND=" + (GoogleCommand.length + 2)
+		
+        sendAT("AT+CIPSTART=\"SSL\",\"docs.google.com\",443", 3000)
+        sendAT(ATCommand)
+        sendAT(GoogleCommand,1000)
+        sendAT("AT+CIPCLOSE")
+    }
+
 }
