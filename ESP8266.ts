@@ -28,7 +28,7 @@ namespace MotoduinoWiFi {
                 break
             }
             if (input.runningTime() - time > 5000) {
-			    break
+                break
             }
         }
         return result
@@ -69,5 +69,16 @@ namespace MotoduinoWiFi {
     //% block="Check WiFiConnect"
     export function Check_WiFiConnect(): boolean {
         return bAP_Connected
+    }
+	
+    //% blockId=ThingSpeak_Uploader
+    //% weight=80
+	//% block="ThingSpeak Data Upload| Write API Keys %apikey| Field1 %f1| Field2 %f2| Field3 %f3| Field4 %f4| Field5 %f5| Field6 %f6| Field7 %f7| Field8 %f8"
+    export function ThingSpeak_Uploader(apikey: string, f1: number, f2: number, f3: number, f4: number, f5: number, f6: number, f7: number, f8: number): void {
+  	    sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 5000)
+  	    let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
+  	    let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
+  	    sendAT(ATCommand)
+  	    sendAT(TSCommand)
     }
 }
