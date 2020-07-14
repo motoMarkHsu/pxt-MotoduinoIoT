@@ -46,8 +46,8 @@ namespace MotoduinoWiFi {
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
     //% txd.defl=SerialPin.P13
     //% rxd.defl=SerialPin.P14
-	//% ssid.defl="Motoduino"
-	//% passwd.defl="motoblockly123"
+    //% ssid.defl="Motoduino"
+    //% passwd.defl="motoblockly123"
 	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
