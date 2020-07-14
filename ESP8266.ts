@@ -47,13 +47,13 @@ namespace MotoduinoWiFi {
 
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, baudrate: BaudRate, ssid: string, passwd: string): void {
         /**
-		serial.redirect(
+        serial.redirect(
             txd,   //TX
             rxd,  //RX
             BaudRate.BaudRate9600
         )
 
-		sendAT("AT+RESTORE", 1000) // restore to factory settings
+        sendAT("AT+RESTORE", 1000) // restore to factory settings
         sendAT("AT+CWMODE=1") // set to STA mode
         sendAT("AT+RST", 1000) // reset
         basic.pause(100)
@@ -63,19 +63,19 @@ namespace MotoduinoWiFi {
         sendAT("AT+CWJAP=\"" + ssid + "\",\"" + passwd + "\"", 0) // connect to Wifi router
         bAP_Connected = waitResponse()
         basic.pause(100)
-		**/
+        **/
 		
-		serial.redirect(SerialPin.P13,SerialPin.P14,BaudRate.BaudRate9600)
-		bAP_Connected = false
+        serial.redirect(SerialPin.P13,SerialPin.P14,BaudRate.BaudRate9600)
+        bAP_Connected = false
         bThingSpeak_Connected = false
 		
-		serial.writeString("AT+RST" + "\u000D" + "\u000A")
+        serial.writeString("AT+RST" + "\u000D" + "\u000A")
     	basic.pause(1000)
     	serial.writeString("AT+CWMODE_CUR=1" + "\u000D" + "\u000A")
     	basic.pause(1000)
     	let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\""
     	serial.writeString(printT + "\u000D" + "\u000A")
-		bAP_Connected = waitResponse()
+        //bAP_Connected = waitResponse()
     	basic.pause(4000)
     }
 
