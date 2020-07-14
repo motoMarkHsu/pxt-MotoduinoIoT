@@ -20,7 +20,9 @@ namespace MotoduinoWiFi {
         let time: number = input.runningTime()
         while (true) {
             serial_str += serial.readString()
-            if (serial_str.length > 200) serial_str = serial_str.substr(serial_str.length - 200)
+            if (serial_str.length > 200) {
+                serial_str = serial_str.substr(serial_str.length - 200)
+            }
             if (serial_str.includes("OK") || serial_str.includes("ALREADY CONNECTED")) {
                 result = true
                 break
@@ -75,14 +77,14 @@ namespace MotoduinoWiFi {
 	
     //% blockId=ThingSpeak_Uploader
     //% weight=80
-	//% block="ThingSpeak Data Upload| Write API Keys %apikey| Field 1 %f1| Field 2 %f2| Field 3 %f3| Field 4 %f4| Field 5 %f5| Field 6 %f6| Field 7 %f7| Field 8 %f8"
-	//% apikey.defl="P41FO62IC3SC9Y9Q"
+    //% block="ThingSpeak Data Upload| Write API Keys %apikey| Field 1 %f1| Field 2 %f2| Field 3 %f3| Field 4 %f4| Field 5 %f5| Field 6 %f6| Field 7 %f7| Field 8 %f8"
+    //% apikey.defl="P41FO62IC3SC9Y9Q"
 	
     export function ThingSpeak_Uploader(apikey: string, f1: number, f2: number, f3: number, f4: number, f5: number, f6: number, f7: number, f8: number): void {
-  	    sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 3000)
-  	    let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
-  	    let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
-  	    sendAT(ATCommand)
-  	    sendAT(TSCommand)
+        sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 3000)
+        let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
+        let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
+        sendAT(ATCommand)
+        sendAT(TSCommand)
     }
 }
