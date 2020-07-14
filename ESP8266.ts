@@ -109,8 +109,7 @@ namespace MotoduinoWiFi {
 		
         sendAT("AT+CIPSTART=\"TCP\",\"maker.ifttt.com\",80", 3000)
         sendAT(ATCommand)
-        sendAT(IFTTTCommand3)
-        //sendAT(IFTTTParameter,3000)
-        //sendAT("AT+CIPCLOSE")
+        sendAT(IFTTTCommand3,3000)
+        sendAT("AT+CIPCLOSE")
     }
 }
