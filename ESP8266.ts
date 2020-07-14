@@ -93,7 +93,7 @@ namespace MotoduinoWiFi {
     //% blockId=IFTTT_Service
     //% weight=70
     //% block="IFTTT Service| API Keys %apikey| Event Name %eventName| Value 1 %v1| Value 2 %v2| Value 3 %v3"
-    //% apikey.defl="d2tCByRKOVoOzbHT-PAelo"
+    //% apikey.defl="d2tCByRKOVoOzbHT-PAel"
     //% eventName.defl="IFTTT_Trigger"
 	
     export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
@@ -109,8 +109,8 @@ namespace MotoduinoWiFi {
 		
         sendAT("AT+CIPSTART=\"TCP\",\"maker.ifttt.com\",80", 3000)
         sendAT(ATCommand)
-        sendAT(IFTTTCommand3,3000)
+        sendAT(IFTTTCommand3)
         //sendAT(IFTTTParameter,3000)
-        sendAT("AT+CIPCLOSE")
+        //sendAT("AT+CIPCLOSE")
     }
 }
