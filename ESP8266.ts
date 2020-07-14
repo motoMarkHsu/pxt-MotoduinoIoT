@@ -136,6 +136,7 @@ namespace MotoduinoWiFi {
         let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
         let ATCommand = "AT+CIPSEND=" + (GoogleCommand.length + 2)
 		
+        sendAT("AT+CIPSSLSIZE=4096") 
         sendAT("AT+CIPSTART=\"SSL\",\"docs.google.com\",443", 3000)
         sendAT(ATCommand)
         sendAT(GoogleCommand,1000)
