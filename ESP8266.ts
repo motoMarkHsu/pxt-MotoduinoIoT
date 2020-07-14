@@ -43,35 +43,17 @@ namespace MotoduinoWiFi {
     */
     //% blockId=Wifi_Setup
     //% weight=100
-    //% block="Motoduino WIFI Set| Tx Pin %txd| Rx Pin %rxd| SSID %ssid| PASSWORD %passwd"
+    //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
 
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
-        /**
-        serial.redirect(
-            txd,   //TX
-            rxd,  //RX
-            BaudRate.BaudRate9600
-        )
 
-        sendAT("AT+RESTORE", 1000) // restore to factory settings
-        sendAT("AT+CWMODE=1") // set to STA mode
-        sendAT("AT+RST", 1000) // reset
-        basic.pause(100)
-
-        bAP_Connected = false
-        bThingSpeak_Connected = false
-        sendAT("AT+CWJAP=\"" + ssid + "\",\"" + passwd + "\"", 0) // connect to Wifi router
-        bAP_Connected = waitResponse()
-        basic.pause(100)
-        **/
-		
         bAP_Connected = false
         bThingSpeak_Connected = false
 		
         serial.redirect(txd, rxd, BaudRate.BaudRate9600)
         sendAT("AT+RST")
     	sendAT("AT+CWMODE_CUR=1")
-    	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"",0)
+    	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0)
         bAP_Connected = waitResponse()
     	basic.pause(3000)
     }
