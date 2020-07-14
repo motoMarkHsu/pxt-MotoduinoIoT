@@ -1,6 +1,6 @@
 {
     "name": "MotoduinoWiFi",
-    "version": "1.1.0",
+    "version": "0.0.1",
     "description": "Motoduino WiFi Terminal Test.",
     "license": "MIT",
     "dependencies": {
@@ -9,7 +9,7 @@
     "files": [
         "README.md",
         "ESP8266.ts",
-        "_locales/zh/MotoduinoWiFi-strings.json"
+        "_locales/zh/ESP8266-strings.json"
     ],
     "public": true
 }
