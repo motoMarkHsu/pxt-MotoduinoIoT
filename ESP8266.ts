@@ -85,7 +85,8 @@ namespace MotoduinoWiFi {
         let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
         let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
         sendAT(ATCommand)
-        sendAT(TSCommand)
+        sendAT(TSCommand,3000)
+        sendAT("AT+CIPCLOSE")
     }
 	
 	
@@ -98,15 +99,16 @@ namespace MotoduinoWiFi {
     export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
         let IFTTTParameter = "\r\n{\"value1\":\""+ v1+"\",\"value2\":\""+ v2+"\",\"value3\":\""+ v3+"\"}"
         let nCommandLen: number = IFTTTParameter.length + 2
-        let IFTTTCommand = "POST /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: Arduino\r\nAccept: */*\r\nContent-Length: \r\n"+ nCommandLen+"\r\nContent-Type: application/json\r\nConnection: close"
-        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand.length + nCommandLen + 2)
+        let IFTTTCommand = "POST /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: Arduino\r\nAccept: */*\r\nContent-Length: \r\n"+ nCommandLen+"\r\nContent-Type: application/json\r\nConnection: close\r\n{\"value1\":\""+ v1+"\",\"value2\":\""+ v2+"\",\"value3\":\""+ v3+"\"}"
+        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand.length + 2)
 		
         //let IFTTTCommand3 = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
         //let ATCommand = "AT+CIPSEND=" + (IFTTTCommand3.length + 2)
 		
         sendAT("AT+CIPSTART=\"TCP\",\"maker.ifttt.com\",80", 3000)
         sendAT(ATCommand)
-        sendAT(IFTTTCommand)
-        sendAT(IFTTTParameter,3000)
+        sendAT(IFTTTCommand,3000)
+        //sendAT(IFTTTParameter,3000)
+        sendAT("AT+CIPCLOSE")
     }
 }
