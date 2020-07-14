@@ -65,7 +65,7 @@ namespace MotoduinoWiFi {
         basic.pause(100)
         **/
 		
-        serial.redirect(SerialPin.P13,SerialPin.P14,BaudRate.BaudRate9600)
+        serial.redirect(txd, rxd, BaudRate.BaudRate9600)
         bAP_Connected = false
         bThingSpeak_Connected = false
 		
@@ -75,7 +75,7 @@ namespace MotoduinoWiFi {
     	basic.pause(1000)
     	let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\""
     	serial.writeString(printT + "\u000D" + "\u000A")
-        //bAP_Connected = waitResponse()
+        bAP_Connected = waitResponse()
     	basic.pause(4000)
     }
 
