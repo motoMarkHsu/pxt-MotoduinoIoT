@@ -89,13 +89,13 @@ namespace MotoduinoWiFi {
     }
 	
 	
-    //% blockId=IFTTT_Trigger
+    //% blockId=IFTTT_Service
     //% weight=70
     //% block="IFTTT Service| API Keys %apikey| Event Name %eventName| Value 1 %v1| Value 2 %v2| Value 3 %v3"
     //% apikey.defl="d2tCByRKOVoOzbHT-PAelo"
     //% eventName.defl="IFTTT_Trigger"
 	
-    export function IFTTT_Trigger(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
+    export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
         let IFTTTCommand1 = "\r\n{\"value1\":\""+ v1+"\",\"value2\":\""+ v2+"\",\"value3\":\""+ v3+"\"}"
         let nCommandLen: number = IFTTTCommand1.length + 2
         let IFTTTCommand2 = "POST /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: Arduino\r\nAccept: */*\r\nContent-Length: \r\n"+ nCommandLen+"\r\nContent-Type: application/json\r\nConnection: close"+ IFTTTCommand1
