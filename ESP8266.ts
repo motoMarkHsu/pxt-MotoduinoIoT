@@ -96,16 +96,17 @@ namespace MotoduinoWiFi {
     //% eventName.defl="IFTTT_Trigger"
 	
     export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
-        let IFTTTCommand1 = "\r\n{\"value1\":\""+ v1+"\",\"value2\":\""+ v2+"\",\"value3\":\""+ v3+"\"}"
-        let nCommandLen: number = IFTTTCommand1.length + 2
-        //let IFTTTCommand2 = "POST /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: Arduino\r\nAccept: */*\r\nContent-Length: \r\n"+ nCommandLen+"\r\nContent-Type: application/json\r\nConnection: close"+ IFTTTCommand1
-        //let ATCommand = "AT+CIPSEND=" + (IFTTTCommand2.length + 2)
+        let IFTTTParameter = "\r\n{\"value1\":\""+ v1+"\",\"value2\":\""+ v2+"\",\"value3\":\""+ v3+"\"}"
+        let nCommandLen: number = IFTTTParameter.length + 2
+        let IFTTTCommand = "POST /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: Arduino\r\nAccept: */*\r\nContent-Length: \r\n"+ nCommandLen+"\r\nContent-Type: application/json\r\nConnection: close"
+        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand.length + nCommandLen + 2)
 		
-        let IFTTTCommand3 = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
-        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand3.length + 2)
+        //let IFTTTCommand3 = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        //let ATCommand = "AT+CIPSEND=" + (IFTTTCommand3.length + 2)
 		
         sendAT("AT+CIPSTART=\"TCP\",\"maker.ifttt.com\",80", 3000)
         sendAT(ATCommand)
-        sendAT(IFTTTCommand3,5000)
+        sendAT(IFTTTCommand)
+		sendAT(IFTTTParameter,3000)
     }
 }
