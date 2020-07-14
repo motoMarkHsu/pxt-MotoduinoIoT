@@ -43,9 +43,9 @@ namespace MotoduinoWiFi {
     */
     //% blockId=Wifi_Setup
     //% weight=100
-    //% block="Motoduino WIFI Set| RX (Tx of micro:bit) %txd| TX (Rx of micro:bit) %rxd| Baud rate %baudrate| SSID %ssid| PASSWORD %passwd"
+    //% block="Motoduino WIFI Set| Tx Pin %txd| Rx Pin %rxd| SSID %ssid| PASSWORD %passwd"
 
-    export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, baudrate: BaudRate, ssid: string, passwd: string): void {
+    export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
         /**
         serial.redirect(
             txd,   //TX
@@ -75,6 +75,7 @@ namespace MotoduinoWiFi {
     	basic.pause(1000)
     	let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\""
     	serial.writeString(printT + "\u000D" + "\u000A")
+		basic.pause(1000)
         bAP_Connected = waitResponse()
     	basic.pause(4000)
     }
