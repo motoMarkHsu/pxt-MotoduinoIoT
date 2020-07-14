@@ -65,17 +65,17 @@ namespace MotoduinoWiFi {
         basic.pause(100)
         **/
 		
-        serial.redirect(txd, rxd, BaudRate.BaudRate9600)
         bAP_Connected = false
         bThingSpeak_Connected = false
 		
-        serial.writeString("AT+RST" + "\u000D" + "\u000A")
-    	basic.pause(1000)
-    	serial.writeString("AT+CWMODE_CUR=1" + "\u000D" + "\u000A")
-    	basic.pause(1000)
+        serial.redirect(txd, rxd, BaudRate.BaudRate9600)
+        sendAT("AT+RST")
+    	//basic.pause(1000)
+    	sendAT("AT+CWMODE_CUR=1")
+    	//basic.pause(1000)
     	let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\""
     	serial.writeString(printT + "\u000D" + "\u000A")
-		basic.pause(1000)
+        basic.pause(1000)
         bAP_Connected = waitResponse()
     	basic.pause(4000)
     }
