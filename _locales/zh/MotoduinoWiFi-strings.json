@@ -1,5 +1,6 @@
 {
 	"MotoduinoWiFi|block": "慧手科技IoT",
-	"MotoduinoWiFi.Wifi_Setup|block": "ESP8266設定|Tx腳位 %txd|Rx腳位 %rxd|分享器名稱 %ssid|分享器密碼 %passwd",
-	"MotoduinoWiFi.Check_WiFiConnect|block": "WiFi連線狀態"
+	"MotoduinoWiFi.Wifi_Setup|block": "ESP8266設定| Tx腳位 %txd| Rx腳位 %rxd| 分享器名稱 %ssid| 分享器密碼 %passwd",
+	"MotoduinoWiFi.Check_WiFiConnect|block": "WiFi連線狀態",
+	"MotoduinoWiFi.ThingSpeak_Uploader|block": "ThingSpeak上傳資料|寫入授權碼(API Keys) %apikey| 欄位1 %f1| 欄位2 %f2| 欄位3 %f3| 欄位4 %f4| 欄位5 %f5| 欄位6 %f6| 欄位7 %f7| 欄位8 %f8"
 }
