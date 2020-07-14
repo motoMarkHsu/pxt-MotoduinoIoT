@@ -128,7 +128,9 @@ namespace MotoduinoWiFi {
     //% block="Google Form Service| API Keys %apikey| Entry ID1 %entryID1| Data 1 %data1"| Entry ID2 %entryID2| Data 2 %data2"
     //% apikey.defl="1FAIpQLSdfCMb_9-4Rp3f2fMdD2XXRy2SA7PXEhF1rIh0PYc9NviQafA"
     //% entryID1.defl=1118846978
+    //% data1.defl="111"
 	//% entryID2.defl=1483196833
+    //% data1.defl="222"
 	
     export function GoogleForm_Service(apikey: string, entryID1: number, data1: string, entryID2: number, data2: string): void {
         let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ data1+ "&entry."+ entryID2+ "="+ data2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
