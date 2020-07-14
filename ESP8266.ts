@@ -104,11 +104,12 @@ namespace MotoduinoWiFi {
 		
         let IFTTTCommand2 = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+ "?value1="+ v1+ "&value2="+ v2+"&value3="+ v3+ " HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
         //let IFTTTCommand3 = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
-        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand2.length + 2)
+		let IFTTTCommand4="GET /trigger/IFTTT_Trigger/with/key/d2tCByRKOVoOzbHT-PAelo?value1=1&value2=2&value3=3"
+        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand4.length + 2)
 		
         sendAT("AT+CIPSTART=\"TCP\",\"maker.ifttt.com\",80", 3000)
         sendAT(ATCommand)
-        sendAT(IFTTTCommand2,3000)
+        sendAT(IFTTTCommand4,3000)
         //sendAT(IFTTTParameter,3000)
         sendAT("AT+CIPCLOSE")
     }
