@@ -78,7 +78,6 @@ namespace MotoduinoWiFi {
     //% blockId=ThingSpeak_Uploader
     //% weight=80
     //% block="ThingSpeak Data Upload| Write API Keys %apikey| Field 1 %f1| Field 2 %f2| Field 3 %f3| Field 4 %f4| Field 5 %f5| Field 6 %f6| Field 7 %f7| Field 8 %f8"
-    //% apikey.defl="P41FO62IC3SC9Y9Q"
 	
     export function ThingSpeak_Uploader(apikey: string, f1: number, f2: number, f3: number, f4: number, f5: number, f6: number, f7: number, f8: number): void {
         sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 3000)
@@ -93,7 +92,7 @@ namespace MotoduinoWiFi {
     //% blockId=IFTTT_Service
     //% weight=70
     //% block="IFTTT Service| API Keys %apikey| Event Name %eventName| Value 1 %v1| Value 2 %v2| Value 3 %v3"
-    //% apikey.defl="d2tCByRKOVoOzbHT-PAel"
+    //% apikey.defl="d2tCByRKOVoOzbHT-PAelo"
     //% eventName.defl="IFTTT_Trigger"
 	
     export function IFTTT_Service(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
