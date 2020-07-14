@@ -20,17 +20,15 @@ namespace MotoduinoWiFi {
         let time: number = input.runningTime()
         while (true) {
             serial_str += serial.readString()
-            if (serial_str.length > 200)
-                serial_str = serial_str.substr(serial_str.length - 200)
+            if (serial_str.length > 200) serial_str = serial_str.substr(serial_str.length - 200)
             if (serial_str.includes("OK") || serial_str.includes("ALREADY CONNECTED")) {
                 result = true
                 break
-            }
-            if (serial_str.includes("ERROR") || serial_str.includes("FAIL")) {
+            } else if (serial_str.includes("ERROR") || serial_str.includes("SEND FAIL")) {
                 break
             }
             if (input.runningTime() - time > 30000) {
-                break
+			    break
             }
         }
         return result
@@ -46,6 +44,8 @@ namespace MotoduinoWiFi {
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
     //% txd.defl=SerialPin.P13
     //% rxd.defl=SerialPin.P14
+	//% ssid.defl="MarkHsu"
+	//% passwd.defl="kh3109269"
 	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
