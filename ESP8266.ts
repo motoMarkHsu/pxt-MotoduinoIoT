@@ -44,7 +44,9 @@ namespace MotoduinoWiFi {
     //% blockId=Wifi_Setup
     //% weight=100
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
-
+    //% txd.defl=SerialPin.P13
+    //% rxd.defl=SerialPin.P14
+	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
         bAP_Connected = false
@@ -55,7 +57,7 @@ namespace MotoduinoWiFi {
     	sendAT("AT+CWMODE_CUR=1")
     	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0)
         bAP_Connected = waitResponse()
-    	basic.pause(3000)
+    	basic.pause(1000)
     }
 
 
