@@ -70,14 +70,10 @@ namespace MotoduinoWiFi {
 		
         serial.redirect(txd, rxd, BaudRate.BaudRate9600)
         sendAT("AT+RST")
-    	//basic.pause(1000)
     	sendAT("AT+CWMODE_CUR=1")
-    	//basic.pause(1000)
-    	let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\""
-    	serial.writeString(printT + "\u000D" + "\u000A")
-        basic.pause(1000)
+    	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"",0)
         bAP_Connected = waitResponse()
-    	basic.pause(4000)
+    	basic.pause(3000)
     }
 
 
