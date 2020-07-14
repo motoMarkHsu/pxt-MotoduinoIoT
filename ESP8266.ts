@@ -23,10 +23,10 @@ namespace MotoduinoWiFi {
             if (serial_str.length > 200) {
                 serial_str = serial_str.substr(serial_str.length - 200)
             }
-            if (serial_str.includes("OK") || serial_str.includes("ALREADY CONNECTED")) {
+            if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("ALREADY CONNECTED")>=0) {
                 result = true
                 break
-            } else if (serial_str.includes("ERROR") || serial_str.includes("SEND FAIL")) {
+            } else if (serial_str.indexOf("ERROR")>=0 || serial_str.indexOf("SEND FAIL")>=0) {
                 break
             }
             if (input.runningTime() - time > 5000) {
@@ -59,7 +59,7 @@ namespace MotoduinoWiFi {
     	sendAT("AT+CWMODE_CUR=1")
     	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0)
         bAP_Connected = waitResponse()
-    	basic.pause(1000)
+    	basic.pause(3000)
     }
 
 
@@ -81,10 +81,28 @@ namespace MotoduinoWiFi {
     //% apikey.defl="P41FO62IC3SC9Y9Q"
 	
     export function ThingSpeak_Uploader(apikey: string, f1: number, f2: number, f3: number, f4: number, f5: number, f6: number, f7: number, f8: number): void {
-        sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 5000)
+        sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 3000)
         let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
         let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
         sendAT(ATCommand)
         sendAT(TSCommand)
+    }
+	
+	
+    //% blockId=IFTTT_Trigger
+    //% weight=70
+    //% block="IFTTT Service| API Keys %apikey| Event Name %eventName| Value 1 %v1| Value 2 %v2| Value 3 %v3"
+    //% apikey.defl="d2tCByRKOVoOzbHT-PAelo"
+    //% eventName.defl="IFTTT_Trigger"
+	
+    export function IFTTT_Trigger(apikey: string, eventName: string, v1: number, v2: number, v3: number): void {
+        let IFTTTCommand1 = "\r\n{\"value1\":\""+ v1+"\",\"value2\":\""+ v2+"\",\"value3\":\""+ v3+"\"}"
+        let nCommandLen: number = IFTTTCommand1.length + 2
+        let IFTTTCommand2 = "POST /trigger/"+ eventName+ "/with/key/"+ apikey+" HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: Arduino\r\nAccept: */*\r\nContent-Length: \r\n"+ nCommandLen+"\r\nContent-Type: application/json\r\nConnection: close"+ IFTTTCommand1
+        let ATCommand = "AT+CIPSEND=" + (IFTTTCommand2.length + 2)
+		
+        sendAT("AT+CIPSTART=\"TCP\",\"maker.ifttt.com\",80", 3000)
+        sendAT(ATCommand)
+        sendAT(IFTTTCommand2)
     }
 }
