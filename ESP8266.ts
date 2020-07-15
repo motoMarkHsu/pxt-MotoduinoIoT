@@ -133,7 +133,12 @@ namespace MotoduinoWiFi {
     //% d2.defl="333"
 	
     export function GoogleForm_Service(apikey: string, entryID1: string, d1: string, entryID2: string, d2: string): void {
-        let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        //let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1
+		if(entryID2.length > 0) {
+            GoogleCommand += "&entry."+ entryID2+ "="+ d2
+        }
+        GoogleCommand += "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
         let ATCommand = "AT+CIPSEND=" + (GoogleCommand.length + 2)
 		
         sendAT("AT+CIPSSLSIZE=4096") 
