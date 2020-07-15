@@ -77,9 +77,10 @@ namespace MotoduinoWiFi {
 	
     //% blockId=ThingSpeak_Uploader
     //% weight=80
-    //% block="ThingSpeak Data Upload| Write API Keys %apikey| Field 1 %f1| Field 2 %f2| Field 3 %f3| Field 4 %f4| Field 5 %f5| Field 6 %f6| Field 7 %f7| Field 8 %f8"
+	//% expandableArgumentMode"toggle" inlineInputMode=inline
+    //% block="ThingSpeak Data Upload| Write API Keys %apikey| Field 1 %f1|| Field 2 %f2| Field 3 %f3| Field 4 %f4| Field 5 %f5| Field 6 %f6| Field 7 %f7| Field 8 %f8"
 	
-    export function ThingSpeak_Uploader(apikey: string, f1: number, f2: number, f3: number, f4: number, f5: number, f6: number, f7: number, f8: number): void {
+    export function ThingSpeak_Uploader(apikey: string, f1: number, f2?: number, f3?: number, f4?: number, f5?: number, f6?: number, f7?: number, f8?: number): void {
         sendAT("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80", 3000)
         let TSCommand = "GET /update?key=" + apikey + "&field1=" + f1 + "&field2=" + f2 + "&field3=" + f3 + "&field4=" + f4 + "&field5=" + f5 + "&field6=" + f6 + "&field7=" + f7 + "&field8=" + f8
         let ATCommand = "AT+CIPSEND=" + (TSCommand.length + 2)
@@ -135,7 +136,7 @@ namespace MotoduinoWiFi {
     export function GoogleForm_Service(apikey: string, entryID1: string, d1: string, entryID2: string, d2: string): void {
         //let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
         let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1
-		if(entryID2.length > 0) {
+        if(entryID2.length > 0) {
             GoogleCommand += "&entry."+ entryID2+ "="+ d2
         }
         GoogleCommand += "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
