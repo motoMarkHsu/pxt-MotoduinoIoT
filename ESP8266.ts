@@ -46,8 +46,8 @@ namespace MotoduinoWiFi {
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
     //% txd.defl=SerialPin.P13
     //% rxd.defl=SerialPin.P14
-    //% ssid.defl="Motoduino"
-    //% passwd.defl="motoblockly123"
+    //% ssid.defl="Your_SSID"
+    //% passwd.defl="Your_Password"
 	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
@@ -128,9 +128,6 @@ namespace MotoduinoWiFi {
     //% weight=40
     //% expandableArgumentMode"toggle" inlineInputMode=inline
     //% block="Google Form Service| API Keys %apikey| Entry ID1 %entryID1| Data1 %d1|| Entry ID2 %entryID2| Data2 %d2| Entry ID3 %entryID3| Data3 %d3"
-    //% apikey.defl="1FAIpQLSdfCMb_9-4Rp3f2fMdD2XXRy2SA7PXEhF1rIh0PYc9NviQafA"
-    //% entryID1.defl="1118846978"
-    //% d1.defl=111
 	
     export function GoogleForm_Service(apikey: string, entryID1: string, d1: number, entryID2?: string, d2?: number, entryID3?: string, d3?: number): void {
         let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&entry."+ entryID3+ "="+ d3+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
