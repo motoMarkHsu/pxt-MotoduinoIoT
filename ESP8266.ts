@@ -77,7 +77,7 @@ namespace MotoduinoWiFi {
 	
     //% blockId=ThingSpeak_Uploader
     //% weight=80
-	//% expandableArgumentMode"toggle" inlineInputMode=inline
+    //% expandableArgumentMode"toggle" inlineInputMode=inline
     //% block="ThingSpeak Data Upload| Write API Keys %apikey| Field 1 %f1|| Field 2 %f2| Field 3 %f3| Field 4 %f4| Field 5 %f5| Field 6 %f6| Field 7 %f7| Field 8 %f8"
 	
     export function ThingSpeak_Uploader(apikey: string, f1: number, f2?: number, f3?: number, f4?: number, f5?: number, f6?: number, f7?: number, f8?: number): void {
@@ -126,20 +126,21 @@ namespace MotoduinoWiFi {
 	
     //% blockId=GoogleForm_Service
     //% weight=40
-    //% block="Google Form Service| API Keys %apikey| Entry ID1 %entryID1| Data1 %d1| Entry ID2 %entryID2| Data2 %d2"
+    //% expandableArgumentMode"toggle" inlineInputMode=inline
+    //% block="Google Form Service| API Keys %apikey| Entry ID1 %entryID1| Data1 %d1|| Entry ID2 %entryID2| Data2 %d2| Entry ID3 %entryID3| Data3 %d3"
     //% apikey.defl="1FAIpQLSdfCMb_9-4Rp3f2fMdD2XXRy2SA7PXEhF1rIh0PYc9NviQafA"
     //% entryID1.defl="1118846978"
-    //% d1.defl="222"
-    //% entryID2.defl="1483196833"
-    //% d2.defl="333"
+    //% d1.defl=111
 	
-    export function GoogleForm_Service(apikey: string, entryID1: string, d1: string, entryID2: string, d2: string): void {
-        //let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+    export function GoogleForm_Service(apikey: string, entryID1: string, d1: number, entryID2?: string, d2?: number, entryID3?: string, d3?: number): void {
+        let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&entry."+ entryID3+ "="+ d3+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        /*
         let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1
         if(entryID2.length > 0) {
             GoogleCommand += "&entry."+ entryID2+ "="+ d2
         }
         GoogleCommand += "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
+        */
         let ATCommand = "AT+CIPSEND=" + (GoogleCommand.length + 2)
 		
         sendAT("AT+CIPSSLSIZE=4096") 
