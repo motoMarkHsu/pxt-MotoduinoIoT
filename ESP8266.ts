@@ -5,7 +5,7 @@
 namespace MotoduinoWiFi {
 
     let bAP_Connected: boolean = false
-    let bThingSpeak_Connected: boolean = false
+    //let bThingSpeak_Connected: boolean = false
 
     // write AT command with CR+LF ending
     function sendAT(command: string, wait: number = 1000) {
@@ -20,10 +20,10 @@ namespace MotoduinoWiFi {
         let time: number = input.runningTime()
         while (true) {
             serial_str += serial.readString()
-            if (serial_str.length > 200) {
-                serial_str = serial_str.substr(serial_str.length - 200)
+            if (serial_str.length > 500) {
+                serial_str = serial_str.substr(serial_str.length - 500)
             }
-            if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("ALREADY CONNECTED")>=0) {
+            if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("CONNECTED")>=0) {
                 result = true
                 break
             } else if (serial_str.indexOf("ERROR")>=0 || serial_str.indexOf("SEND FAIL")>=0) {
@@ -46,8 +46,8 @@ namespace MotoduinoWiFi {
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
     //% txd.defl=SerialPin.P13
     //% rxd.defl=SerialPin.P14
-    //% ssid.defl="Your_SSID"
-    //% passwd.defl="Your_Password"
+    //% ssid.defl="Motoduino"
+    //% passwd.defl="motoblockly123"
 	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
@@ -109,8 +109,8 @@ namespace MotoduinoWiFi {
     //% blockId=LINE_Notify
     //% weight=50
     //% block="LINE Notify| Token %token| LINE Message %msg"
-    //% token.defl="d2tCByRKOVoOzbHT-PAelo"
-    //% msg.defl="Hello"
+    //% token.defl=""
+    //% msg.defl=""
 	
     export function LINE_Notify(token: string, msg: string): void {
         let LINENotifyCommand = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+ "?value1="+ v1+ "&value2="+ v2+"&value3="+ v3+ " HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
