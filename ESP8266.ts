@@ -23,7 +23,7 @@ namespace MotoduinoWiFi {
             if (serial_str.length > 200) {
                 serial_str = serial_str.substr(serial_str.length - 200)
             }
-            if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("CONNECTED")>=0) {
+            if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("ALREADY CONNECTED")>=0) {
                 result = true
                 break
             } else if (serial_str.indexOf("ERROR")>=0 || serial_str.indexOf("SEND FAIL")>=0) {
