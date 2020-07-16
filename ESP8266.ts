@@ -5,7 +5,7 @@
 namespace MotoduinoWiFi {
 
     let bAP_Connected: boolean = false
-    //let bThingSpeak_Connected: boolean = false
+    let bThingSpeak_Connected: boolean = false
 
     // write AT command with CR+LF ending
     function sendAT(command: string, wait: number = 1000) {
@@ -20,8 +20,8 @@ namespace MotoduinoWiFi {
         let time: number = input.runningTime()
         while (true) {
             serial_str += serial.readString()
-            if (serial_str.length > 500) {
-                serial_str = serial_str.substr(serial_str.length - 500)
+            if (serial_str.length > 200) {
+                serial_str = serial_str.substr(serial_str.length - 200)
             }
             if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("CONNECTED")>=0) {
                 result = true
