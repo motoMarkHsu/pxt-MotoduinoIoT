@@ -20,13 +20,13 @@ namespace MotoduinoWiFi {
         let time: number = input.runningTime()
         while (true) {
             serial_str += serial.readString()
-            if (serial_str.length > 200) {
-                serial_str = serial_str.substr(serial_str.length - 200)
+            if (serial_str.length > 300) {
+                serial_str = serial_str.substr(serial_str.length - 300)
             }
-            if (serial_str.indexOf("OK")>=0 || serial_str.indexOf("ALREADY CONNECTED")>=0) {
+            if (serial_str.includes("OK")>=0 || serial_str.includes("CONNECTED")>=0) {
                 result = true
                 break
-            } else if (serial_str.indexOf("ERROR")>=0 || serial_str.indexOf("SEND FAIL")>=0) {
+            } else if (serial_str.includes("ERROR")>=0 || serial_str.includes("SEND FAIL")>=0) {
                 break
             }
             if (input.runningTime() - time > 5000) {
