@@ -20,8 +20,9 @@ namespace MotoduinoWiFi {
         let time: number = input.runningTime()
         while (true) {
             serial_str += serial.readString()
-            if (serial_str.length > 300) {
-                serial_str = serial_str.substr(serial_str.length - 300)
+			//sendAT(serial_str)
+            if (serial_str.length > 200) {
+                serial_str = serial_str.substr(serial_str.length - 200)
             }
             if (serial_str.includes("OK") || serial_str.includes("CONNECTED")) {
                 result = true
@@ -29,10 +30,11 @@ namespace MotoduinoWiFi {
             } else if (serial_str.includes("ERROR") || serial_str.includes("SEND FAIL")) {
                 break
             }
-            if (input.runningTime() - time > 10000) {
+            if (input.runningTime() - time > 5000) {
                 break
             }
         }
+		//sendAT("Done")
         return result
     }
 
@@ -46,8 +48,8 @@ namespace MotoduinoWiFi {
     //% block="Motoduino WIFI Set| Tx_Pin %txd| Rx_Pin %rxd| SSID %ssid| PASSWORD %passwd"
     //% txd.defl=SerialPin.P13
     //% rxd.defl=SerialPin.P14
-    //% ssid.defl="Motoduino"
-    //% passwd.defl="motoblockly123"
+    //% ssid.defl="Your_SSID"
+    //% passwd.defl="Your_Password"
 	
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
@@ -58,7 +60,7 @@ namespace MotoduinoWiFi {
         sendAT("AT+RST")
     	sendAT("AT+CWMODE_CUR=1")
     	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0)
-        bAP_Connected = waitResponse()
+        //bAP_Connected = waitResponse()
     	basic.pause(3000)
     }
 
@@ -70,9 +72,9 @@ namespace MotoduinoWiFi {
     //% weight=90
     //% block="Check WiFiConnect"
 	
-    export function Check_WiFiConnect(): boolean {
+    /*export function Check_WiFiConnect(): boolean {
         return bAP_Connected
-    }
+    }*/
 	
 	
     //% blockId=ThingSpeak_Uploader
