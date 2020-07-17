@@ -5,7 +5,6 @@
 namespace MotoduinoWiFi {
 
     let bAP_Connected: boolean = false
-    let bThingSpeak_Connected: boolean = false
 
     // write AT command with CR+LF ending
     function sendAT(command: string, wait: number = 1000) {
@@ -54,13 +53,11 @@ namespace MotoduinoWiFi {
     export function Wifi_Setup(txd: SerialPin, rxd: SerialPin, ssid: string, passwd: string): void {
 
         bAP_Connected = false
-        bThingSpeak_Connected = false
 		
         serial.redirect(txd, rxd, BaudRate.BaudRate9600)
         sendAT("AT+RST")
     	sendAT("AT+CWMODE_CUR=1")
     	sendAT("AT+CWJAP_CUR=\"" + ssid + "\",\"" + passwd + "\"", 0)
-        //bAP_Connected = waitResponse()
     	basic.pause(3000)
     }
 
@@ -105,26 +102,7 @@ namespace MotoduinoWiFi {
         sendAT(IFTTTCommand,1000)
         sendAT("AT+CIPCLOSE")
     }
-	
-	
-    /**
-    //% blockId=LINE_Notify
-    //% weight=50
-    //% block="LINE Notify| Token %token| LINE Message %msg"
-    //% token.defl=""
-    //% msg.defl=""
-	
-    export function LINE_Notify(token: string, msg: string): void {
-        let LINENotifyCommand = "GET /trigger/"+ eventName+ "/with/key/"+ apikey+ "?value1="+ v1+ "&value2="+ v2+"&value3="+ v3+ " HTTP/1.1\r\nHost: maker.ifttt.com\r\nConnection: close\r\n\r\n\r\n\r\n"
-        let ATCommand = "AT+CIPSEND=" + (LINENotifyCommand.length + 2)
 		
-        sendAT("AT+CIPSTART=\"SSL\",\"notify-api.line.me\",443", 3000)
-        sendAT(ATCommand)
-        sendAT(LINENotifyCommand,1000)
-        sendAT("AT+CIPCLOSE")
-    }
-    **/
-	
 	
     //% blockId=GoogleForm_Service
     //% weight=40
@@ -133,13 +111,6 @@ namespace MotoduinoWiFi {
 	
     export function GoogleForm_Service(apikey: string, entryID1: string, d1: number, entryID2?: string, d2?: number, entryID3?: string, d3?: number): void {
         let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1+ "&entry."+ entryID2+ "="+ d2+ "&entry."+ entryID3+ "="+ d3+ "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
-        /*
-        let GoogleCommand = "GET /forms/d/e/"+ apikey+ "/formResponse?entry."+ entryID1+ "="+ d1
-        if(entryID2.length > 0) {
-            GoogleCommand += "&entry."+ entryID2+ "="+ d2
-        }
-        GoogleCommand += "&submit=Submit HTTP/1.1\r\nHost: docs.google.com\r\nConnection: close\r\n\r\n\r\n\r\n"
-        */
         let ATCommand = "AT+CIPSEND=" + (GoogleCommand.length + 2)
 		
         sendAT("AT+CIPSSLSIZE=4096") 
