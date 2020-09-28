@@ -181,7 +181,6 @@ namespace MotoduinoWiFi {
     //% weight=30
     //% block="Firebase Data Upload| Upload Method %uploadMethod| URL %szFirebaseURL| Key %szFirebaseKey| Path %szFirebasePath| ID 1 %szFirebaseID1| Data 1 %szUpdateData1|| ID 2 %szFirebaseID2| Data 2 %szUpdateData2| ID 3 %szFirebaseID3| Data 3 %szUpdateData3"
     //% szFirebaseURL.defl="xxxxxxx.firebaseio.com"
-    //% szFirebaseKey.defl=""
 	
     export function Firebase_Uploader(uploadMethod: FirebaseUploadMethod, szFirebaseURL: string, szFirebaseKey: string, szFirebasePath: string, szFirebaseID1: string, szUpdateData1: number, szFirebaseID2?: string, szUpdateData2?: number, szFirebaseID3?: string, szUpdateData3?: number): void {
         let szFirebaseData: string = ""
@@ -189,35 +188,55 @@ namespace MotoduinoWiFi {
 		
 		if(szFirebaseID1.indexOf("undefined")<0 && szFirebaseID2.indexOf("undefined")<0 && szFirebaseID3.indexOf("undefined")<0)
 		{
-			//basic.showNumber(3)
-			szFirebaseData = "{\"" + szFirebaseID1 + "\":\"" + szUpdateData1 + "\",\"" + szFirebaseID2 + "\":\"" + szUpdateData2 + "\",\"" + szFirebaseID3 + "\":\"" + szUpdateData3 + "\"}" + "\u000D\u000A"
+			szFirebaseData = "{\"" + szFirebaseID1 + "\":" + szUpdateData1 + ",\"" + szFirebaseID2 + "\":" + szUpdateData2 + ",\"" + szFirebaseID3 + "\":" + szUpdateData3 + "}" + "\u000D\u000A"
 		}
 		else if(szFirebaseID1.indexOf("undefined")<0 && szFirebaseID2.indexOf("undefined")<0)
 		{
-			//basic.showNumber(2)
-			szFirebaseData = "{\"" + szFirebaseID1 + "\":\"" + szUpdateData1 + "\",\"" + szFirebaseID2 + "\":\"" + szUpdateData2 + "\"}" + "\u000D\u000A"
+			szFirebaseData = "{\"" + szFirebaseID1 + "\":" + szUpdateData1 + ",\"" + szFirebaseID2 + "\":" + szUpdateData2 + "}" + "\u000D\u000A"
 		}
 		else if(szFirebaseID1.indexOf("undefined")<0)
 		{
-			//basic.showNumber(1)
-			szFirebaseData = "{\"" + szFirebaseID1 + "\":\"" + szUpdateData1 + "\"}" + "\u000D\u000A"
+			szFirebaseData = "{\"" + szFirebaseID1 + "\":" + szUpdateData1 + "}" + "\u000D\u000A"
 		}
 		else
+		{
 			return
+		}
 		
 		let nFirebaseDataLen: number = szFirebaseData.length + 2
+		let szUploadMethod: string=""
 		if(uploadMethod == 1)
-			FirebaseUploadCommand = "PUT /" + szFirebasePath + ".json?auth=" + szFirebaseKey + " HTTP/1.1\u000D\u000AHost: " + szFirebaseURL + "\u000D\u000AContent-Length: "+nFirebaseDataLen+"\u000D\u000A\u000D\u000A"+szFirebaseData+"\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A"
+			szUploadMethod = "PUT"
 		if(uploadMethod == 2)
-			FirebaseUploadCommand = "POST /" + szFirebasePath + ".json?auth=" + szFirebaseKey + " HTTP/1.1\u000D\u000AHost: " + szFirebaseURL + "\u000D\u000AContent-Length: "+nFirebaseDataLen+"\u000D\u000A\u000D\u000A"+szFirebaseData+"\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A"
+			szUploadMethod = "POST"
 		if(uploadMethod == 3)
-			FirebaseUploadCommand = "PATCH /" + szFirebasePath + ".json?auth=" + szFirebaseKey + " HTTP/1.1\u000D\u000AHost: " + szFirebaseURL + "\u000D\u000AContent-Length: "+nFirebaseDataLen+"\u000D\u000A\u000D\u000A"+szFirebaseData+"\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A"
+			szUploadMethod = "PATCH"
+			
+		FirebaseUploadCommand = szUploadMethod + " /" + szFirebasePath + ".json?auth=" + szFirebaseKey + " HTTP/1.1\u000D\u000AHost: " + szFirebaseURL + "\u000D\u000AContent-Length: "+nFirebaseDataLen+"\u000D\u000A\u000D\u000A"+szFirebaseData+"\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A"
         let ATCommand = "AT+CIPSEND=" + (FirebaseUploadCommand.length + 2)
 		
         sendAT("AT+CIPSSLSIZE=4096") 
         sendAT("AT+CIPSTART=\"SSL\",\""+szFirebaseURL+"\",443", 3000)
         sendAT(ATCommand)
         sendAT(FirebaseUploadCommand,3000)
+        sendAT("AT+CIPCLOSE")
+    }
+	
+	
+	//% blockId=MCS_Uploader
+    //% weight=25
+    //% block="MCS Data Upload| Device ID %szDeviceID| Device Key %szDeviceKey| Channel Name %szDataChannelName| Data %nData"
+	
+    export function MCS_Uploader(szDeviceID: string, szDeviceKey: string, szDataChannelName: string, nData: number): void {
+        let szCSVData: string = szDataChannelName+",,"+nData+"\u000D\u000A"
+		let nCSVDataLen: number = szCSVData.length + 2
+        let MCSUploadCommand = "POST /mcs/v2/devices/"+ szDeviceID +"/datapoints.csv HTTP/1.1\u000D\u000AHost: api.mediatek.com\u000D\u000AContent-Type: text/csv\u000D\u000AdeviceKey: "+ szDeviceKey +"\u000D\u000AContent-Length: "+ nCSVDataLen +"\u000D\u000A\u000D\u000A"+ szCSVData +"\u000D\u000AConnection: close\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A"
+        let ATCommand = "AT+CIPSEND=" + (MCSUploadCommand.length + 2)
+		
+        sendAT("AT+CIPSSLSIZE=4096") 
+        sendAT("AT+CIPSTART=\"SSL\",\"api.mediatek.com\",443", 3000)
+        sendAT(ATCommand)
+        sendAT(MCSUploadCommand,3000)
         sendAT("AT+CIPCLOSE")
     }
 }
